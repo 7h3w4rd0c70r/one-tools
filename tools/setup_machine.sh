@@ -94,7 +94,42 @@ function installMongoDB() {
         then
             echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.6 main" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
         else
-            echo "    Unknown Debian version $DEBIAN_VERSION"
+            echo "    Don't know how to install for Debian $DEBIAN_VERSION"
+            return 0
+        fi
+
+        apt-get update
+        apt-get install -y mongodb-org
+
+        return 0
+    fi
+
+    case $DEFAULT_MANAGER in
+        "homebrew")
+            brew update
+            brew install mongodb
+            return 0
+        *)
+            echo "    Don't know how to install MongoDB on $MACHINE"
+            return 0
+    esac
+}
+
+function installCertbot() {
+    echo "  Installing MongoDB"
+
+    if [ IS_DEBIAN_BASED ]
+    then
+        if [[ $DEBIAN_VERSION == "7" ]]
+        then
+            wget https://dl.eff.org/certbot-auto
+            # TODO: fix
+            chmod a+x certbot-auto
+        else if [[ $DEBIAN_VERSION == "8" ]]
+        then
+            apt-get install certbot -t jessie-backports
+        else
+            echo "    Don't know how to install for Debian $DEBIAN_VERSION"
             return 0
         fi
 
@@ -121,3 +156,4 @@ installNginx
 installNode
 installPm2
 installMongoDB
+installCertbot
