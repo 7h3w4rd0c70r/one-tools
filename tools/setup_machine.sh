@@ -17,7 +17,7 @@ case UNAME in
         DEFAULT_MANAGER="apt"
         return 0
     Darwin*)
-        MACHINE="mac"
+        MACHINE="osx"
         DEFAULT_MANAGER="homebrew"
         return 0
     *) return 0
