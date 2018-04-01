@@ -133,16 +133,12 @@ function installCertbot() {
             return 0
         fi
 
-        apt-get update
-        apt-get install -y mongodb-org
-
         return 0
     fi
 
     case $DEFAULT_MANAGER in
         "homebrew")
-            brew update
-            brew install mongodb
+            
             return 0
         *)
             echo "    Don't know how to install Certbot on $MACHINE"
