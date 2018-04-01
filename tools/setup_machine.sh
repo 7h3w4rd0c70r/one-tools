@@ -145,7 +145,7 @@ function installCertbot() {
             brew install mongodb
             return 0
         *)
-            echo "    Don't know how to install MongoDB on $MACHINE"
+            echo "    Don't know how to install Certbot on $MACHINE"
             return 0
     esac
 }
