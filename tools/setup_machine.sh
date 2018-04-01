@@ -1,7 +1,6 @@
 #!/bin/bash
 
-if [ $(id -u) != "0" ]
-then
+if [ $(id -u) != "0" ]; then
     echo "sudo required"
     echo ""
     sudo "$0" "$@"
@@ -25,8 +24,7 @@ esac
 
 IS_DEBIAN_BASED=false
 DEBIAN_VERSION=$(cat /dev/null)
-if [ -f /etc/debian_version ]
-then
+if [ -f /etc/debian_version ]; then
    IS_DEBIAN_BASED=true
    DEBIAN_VERSION=$(sed 's/\..*//' /etc/debian_version)
 fi
@@ -34,8 +32,7 @@ fi
 function installNginx() {
     echo "  Installing nginx"
 
-    if ! which nginx > /dev/null 2>&1
-    then
+    if ! which nginx > /dev/null 2>&1; then
         case $DEFAULT_MANAGER in
             "apt")
                 apt-get install nginx
@@ -55,8 +52,7 @@ function installNginx() {
 function installNode() {
     echo "  Installing node"
 
-    if ! which node > /dev/null 2>&1
-    then
+    if ! which node > /dev/null 2>&1; then
         case $DEFAULT_MANAGER in
             "apt")
                 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
@@ -83,15 +79,12 @@ function installPm2() {
 function installMongoDB() {
     echo "  Installing MongoDB"
 
-    if [ IS_DEBIAN_BASED ]
-    then
+    if [ IS_DEBIAN_BASED ]; then
         apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
 
-        if [[ $DEBIAN_VERSION == "7" ]]
-        then
+        if [[ $DEBIAN_VERSION == "7" ]]; then
             echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.6 main" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
-        else if [[ $DEBIAN_VERSION == "8" ]]
-        then
+        else if [[ $DEBIAN_VERSION == "8" ]]; then
             echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.6 main" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
         else
             echo "    Don't know how to install for Debian $DEBIAN_VERSION"
@@ -118,15 +111,12 @@ function installMongoDB() {
 function installCertbot() {
     echo "  Installing MongoDB"
 
-    if [ IS_DEBIAN_BASED ]
-    then
-        if [[ $DEBIAN_VERSION == "7" ]]
-        then
+    if [ IS_DEBIAN_BASED ]; then
+        if [[ $DEBIAN_VERSION == "7" ]]; then
             wget https://dl.eff.org/certbot-auto
             # TODO: fix
             chmod a+x certbot-auto
-        else if [[ $DEBIAN_VERSION == "8" ]]
-        then
+        else if [[ $DEBIAN_VERSION == "8" ]]; then
             apt-get install certbot -t jessie-backports
         else
             echo "    Don't know how to install for Debian $DEBIAN_VERSION"
