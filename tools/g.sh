@@ -16,9 +16,16 @@ case $CMD in
         CURRENT_BRANCH="$(git symbolic-ref --short -q HEAD)"
         git push origin $CURRENT_BRANCH
         ;;
+    "m")
+        git merge $2
+        ;;
+    "b")
+        git branch
+        ;;
     "remote")
         REMOTE_NAME="origin"
-        if git config "remote.$REMOTE_NAME.url" > /dev/null; then
+        if git config "remote.$REMOTE_NAME.url" > /dev/null
+        then
             git remote set-url $REMOTE_NAME $2
         else
             git remote add $REMOTE_NAME $2

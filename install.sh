@@ -14,7 +14,7 @@ echo "Installing tools..."
 
 CURRENT_PATH="$(pwd)"
 TOOLS_PATH="$CURRENT_PATH/tools"
-INSTALL_PATH="/usr/local/OneTools"
+INSTALL_PATH="/usr/local/UnixTools"
 BIN_PATH="/usr/local/bin"
 
 #printf "    Install to path $INSTALL_PATH (Y/n) > "
