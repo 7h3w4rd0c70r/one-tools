@@ -6,6 +6,9 @@ case $CMD in
     "i")
         git init
         ;;
+    "cl")
+        git clone $2
+        ;;
     "a")
         git add .
         ;;
