@@ -56,7 +56,7 @@ do
         DIST_FILE="$INSTALL_PATH/$TOOL"
         LINK_FILE="$BIN_PATH/$TOOL_NAME"
 
-        echo "  Installing $TOOL_NAME to $DIST_FILE"
+        echo " > Installing $TOOL_NAME to $DIST_FILE"
 
         if [ -f $DIST_FILE ]
         then
@@ -66,6 +66,43 @@ do
         cp $TOOL_FILE $DIST_FILE
         chmod 755 $DIST_FILE
         ln -sf $DIST_FILE $LINK_FILE
+
+        echo "    - done"
+    fi
+done
+
+for TOOL_DIR in *
+do
+    if [ -d $TOOL_DIR ]
+    then
+        if [ -f "$TOOL_DIR/$TOOL_DIR.sh" ]
+        then
+            TOOL_NAME=$TOOL_DIR
+            DIST_DIR="$INSTALL_PATH/$TOOL_NAME"
+            EXE_FILE="$INSTALL_PATH/$TOOL_NAME/$TOOL_NAME.sh"
+            LINK_FILE="$BIN_PATH/$TOOL_NAME"
+
+            echo " > Installing $TOOL_NAME to $DIST_DIR"
+
+            if [ -d $DIST_DIR ]
+            then
+                rm -D $DIST_DIR
+            fi
+
+            mkdir $DIST_DIR
+
+            cd $TOOL_DIR
+            for FILE in *.sh
+            do
+                cp "$TOOLS_PATH/$TOOL_DIR/$FILE" "$DIST_DIR/$FILE"
+                chmod 755 "$DIST_DIR/$FILE"
+            done
+            cd $TOOLS_PATH
+
+            ln -sf $EXE_FILE $LINK_FILE
+
+            echo "    - done"
+        fi
     fi
 done
 
