@@ -44,11 +44,11 @@ function installNginx() {
                 brew install nginx
                 return 0
             *)
-                echo "Cannot install nginx with $DEFAULT_MANAGER"
+                echo "    Cannot install nginx with $DEFAULT_MANAGER"
                 return 0
         esac
     else
-        echo "  Nginx already installed"
+        echo "    Nginx already installed"
     fi
 }
 
@@ -66,11 +66,11 @@ function installNode() {
                 brew install node
                 return 0
             *)
-                echo "Cannot install node with $DEFAULT_MANAGER"
+                echo "    Cannot install node with $DEFAULT_MANAGER"
                 return 0
         esac
     else
-        echo "  Node already installed"
+        echo "    Node already installed"
     fi
 }
 
@@ -94,7 +94,7 @@ function installMongoDB() {
         then
             echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.6 main" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
         else
-            echo "Unknown Debian version $DEBIAN_VERSION"
+            echo "    Unknown Debian version $DEBIAN_VERSION"
             return 0
         fi
 
@@ -110,7 +110,7 @@ function installMongoDB() {
             brew install mongodb
             return 0
         *)
-            echo "Don't know how to install MongoDB on $MACHINE"
+            echo "    Don't know how to install MongoDB on $MACHINE"
             return 0
     esac
 }
