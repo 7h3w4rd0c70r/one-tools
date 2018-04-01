@@ -10,13 +10,13 @@ fi
 
 DEFAULT_MANAGER="apt"
 
-MACHINE="$(uname -s)"
+MACHINE="$(uname)"
 case UNAME in
-    Linux*)
+    "Linux")
         MACHINE="linux"
         DEFAULT_MANAGER="apt"
         return 0
-    Darwin*)
+    "Darwin")
         MACHINE="osx"
         DEFAULT_MANAGER="homebrew"
         return 0
